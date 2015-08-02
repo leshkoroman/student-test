@@ -55,8 +55,18 @@ class Pages extends CI_Controller {
         }
         
         if(count($error)==0){
-            send_email($email, 'Результати тесту ІКТ', 'Ви набрали: '.$num_ans.' балів');
-            send_email('leshkoroman@mail.ru', 'Результати тесту ІКТ '.$name, 'Ви набрали: '.$num_ans.' балів');
+        	$to1      = $email;
+        	$subject1 = 'Результати тесту ІКТ';
+        	$message1 = 'Ви набрали: '.$num_ans.' балів';
+        	$headers = 'From: ikt@iktddpu.zz.mu' . "\r\n";
+        	mail($to1, $subject1, $message1, $headers);
+        	
+        	$to2      = 'leshkoroman@gmail.com';
+        	$subject2 = 'Результати тесту ІКТ'.$name;
+        	$message2 = $name.' - одержано: '.$num_ans.' балів';
+        	mail($to2, $subject2, $message2, $headers);
+            
+            
             file_put_contents('results.txt', 'Name: '.$name."\t".' Ans: '.$num_ans." \r\n", FILE_APPEND);
             echo json_encode(array('ok' => '1'));
             exit();
