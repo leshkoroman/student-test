@@ -62,12 +62,13 @@ jQuery(document).ready(function ()
         
         var name = $('#name').val();
         var email = $('#email').val();
+        var nameteme= $('#nameteme').val();
         
         $.ajax({
             url: "/showres", // show simular
             dataType: 'json',
             type: 'GET',
-            data: 'num_ans='+num_ans+'&name='+name+'&email='+email,
+            data: 'num_ans='+num_ans+'&name='+name+'&email='+email+'&nameteme='+nameteme,
             success: function (data) {
                 if(data.ok==1){
                     alert('Ви набрали: '+num_ans+' балів');
@@ -126,6 +127,7 @@ function sendAjaxTest(temname) {
                 });
                 i++;
             });
+            $('#form_test').append('<input id="nameteme" type="hidden" value="'+temname+'">');
             $('#form_test').append('<input id="ans" type="button" value="Відповісти">') ;
         }
     });

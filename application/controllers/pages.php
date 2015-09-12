@@ -36,6 +36,7 @@ class Pages extends CI_Controller {
             $name = strip_tags($_GET['name']);
             $email = strip_tags($_GET['email']);
             $num_ans = strip_tags($_GET['num_ans']);
+            $nameteme=strip_tags($_GET['nameteme']);
         }else{
             $num_ans = 0;
         }
@@ -57,17 +58,17 @@ class Pages extends CI_Controller {
         if(count($error)==0){
         	$to1      = $email;
         	$subject1 = 'Результати тесту ІКТ';
-        	$message1 = 'Ви набрали: '.$num_ans.' балів';
+        	$message1 = "Ви набрали: ".$num_ans." балів \r\n". "Тема: ".$nameteme;
         	$headers = 'From: ikt@iktddpu.zz.mu' . "\r\n";
         	mail($to1, $subject1, $message1, $headers);
         	
         	$to2      = 'leshkoroman@gmail.com';
         	$subject2 = 'Результати тесту ІКТ'.$name;
-        	$message2 = $name.' - одержано: '.$num_ans.' балів';
+        	$message2 = $name." - одержано: ".$num_ans." балів \r\n". "Тема: ".$nameteme;
         	mail($to2, $subject2, $message2, $headers);
             
             
-            file_put_contents('results.txt', 'Name: '.$name."\t".' Ans: '.$num_ans." \r\n", FILE_APPEND);
+            file_put_contents('results.txt', 'Name: '.$name."\t".' Ans: '.$num_ans."\t"." Thema: ".$nameteme." \r\n", FILE_APPEND);
             echo json_encode(array('ok' => '1'));
             exit();
         }else{
